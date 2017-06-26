@@ -10,10 +10,12 @@
 		9D04C4CB1F00F47E00D46EEA /* LLAlgorithm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D04C4C11F00F47E00D46EEA /* LLAlgorithm.framework */; };
 		9D04C4D01F00F47E00D46EEA /* LLAlgorithmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D04C4CF1F00F47E00D46EEA /* LLAlgorithmTests.swift */; };
 		9D04C4D21F00F47E00D46EEA /* LLAlgorithm.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D04C4C41F00F47E00D46EEA /* LLAlgorithm.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9DAFAE9B1F01102300F833BE /* BinaryHeap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAFAE9A1F01102300F833BE /* BinaryHeap.swift */; };
 		9DCF9CF21F00F4FD00FF0E97 /* AbstractQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCF9CF11F00F4FD00FF0E97 /* AbstractQueue.swift */; };
 		9DCF9CF41F00F65700FF0E97 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCF9CF31F00F65700FF0E97 /* Queue.swift */; };
 		9DEA26FE1F00F78E0022E36E /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEA26FD1F00F78E0022E36E /* Stack.swift */; };
 		9DEA27001F00FE500022E36E /* Dequeue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEA26FF1F00FE500022E36E /* Dequeue.swift */; };
+		9DFA01F31F010E3200E956B3 /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA01F21F010E3200E956B3 /* PriorityQueue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,10 +35,12 @@
 		9D04C4CA1F00F47E00D46EEA /* LLAlgorithmTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LLAlgorithmTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D04C4CF1F00F47E00D46EEA /* LLAlgorithmTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLAlgorithmTests.swift; sourceTree = "<group>"; };
 		9D04C4D11F00F47E00D46EEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9DAFAE9A1F01102300F833BE /* BinaryHeap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinaryHeap.swift; sourceTree = "<group>"; };
 		9DCF9CF11F00F4FD00FF0E97 /* AbstractQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractQueue.swift; sourceTree = "<group>"; };
 		9DCF9CF31F00F65700FF0E97 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		9DEA26FD1F00F78E0022E36E /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		9DEA26FF1F00FE500022E36E /* Dequeue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dequeue.swift; sourceTree = "<group>"; };
+		9DFA01F21F010E3200E956B3 /* PriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +106,8 @@
 				9DCF9CF31F00F65700FF0E97 /* Queue.swift */,
 				9DEA26FD1F00F78E0022E36E /* Stack.swift */,
 				9DEA26FF1F00FE500022E36E /* Dequeue.swift */,
+				9DFA01F21F010E3200E956B3 /* PriorityQueue.swift */,
+				9DAFAE9A1F01102300F833BE /* BinaryHeap.swift */,
 			);
 			path = Queues;
 			sourceTree = "<group>";
@@ -163,7 +169,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Rock Yang";
 				TargetAttributes = {
 					9D04C4C01F00F47E00D46EEA = {
@@ -173,6 +179,7 @@
 					};
 					9D04C4C91F00F47E00D46EEA = {
 						CreatedOnToolsVersion = 8.3.3;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -217,8 +224,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DAFAE9B1F01102300F833BE /* BinaryHeap.swift in Sources */,
 				9DCF9CF21F00F4FD00FF0E97 /* AbstractQueue.swift in Sources */,
 				9DEA26FE1F00F78E0022E36E /* Stack.swift in Sources */,
+				9DFA01F31F010E3200E956B3 /* PriorityQueue.swift in Sources */,
 				9DEA27001F00FE500022E36E /* Dequeue.swift in Sources */,
 				9DCF9CF41F00F65700FF0E97 /* Queue.swift in Sources */,
 			);
@@ -253,7 +262,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -261,7 +272,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -307,7 +322,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -315,7 +332,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -362,7 +383,8 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -383,7 +405,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -395,7 +418,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lal.LLAlgorithmTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -407,7 +431,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lal.LLAlgorithmTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
