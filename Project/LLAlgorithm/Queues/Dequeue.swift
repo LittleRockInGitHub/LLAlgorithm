@@ -12,6 +12,10 @@ public struct Dequeue<E> {
     
     private(set) public var elements: [E]
     
+    public init(elements: [E]) {
+        self.elements = elements
+    }
+    
     public struct Head: AbstractQueue {
         
         public typealias Elements = [E]

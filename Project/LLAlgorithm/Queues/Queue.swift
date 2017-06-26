@@ -14,6 +14,10 @@ public struct Queue<E> : AbstractQueue {
     
     private(set) public var elements: [E]
     
+    public init(elements: Elements) {
+        self.elements = elements
+    }
+    
     @discardableResult
     public mutating func enqueue(_ element: E) -> Bool {
         elements.append(element)

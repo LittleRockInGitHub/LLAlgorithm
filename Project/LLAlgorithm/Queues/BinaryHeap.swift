@@ -16,12 +16,8 @@ public struct BinaryHeap<E> : PriorityQueue {
     
     public let comparator: (E, E) -> Bool
     
-    init<S : Sequence>(elements: S, capacity: Int = 0, comparator: @escaping (E, E) -> Bool) where S.Element == E {
+    init<S : Sequence>(elements: S, comparator: @escaping (E, E) -> Bool) where S.Element == E {
         var elements = Array(elements)
-        let capacity = max(capacity, elements.count)
-        if capacity > 0 {
-            elements.reserveCapacity(capacity)
-        }
         self.elements = elements
         self.comparator = comparator
         
@@ -89,11 +85,11 @@ public struct BinaryHeap<E> : PriorityQueue {
 
 extension BinaryHeap where E : Comparable {
     
-    public init<S : Sequence>(elements: S, capacity: Int = 0, asMaxHeap: Bool = true) where S.Element == E {
+    public init<S : Sequence>(elements: S, asMaxHeap: Bool = true) where S.Element == E {
         if asMaxHeap {
-            self.init(elements: elements, capacity: capacity, comparator: >)
+            self.init(elements: elements, comparator: >)
         } else {
-            self.init(elements: elements, capacity: capacity, comparator: <)
+            self.init(elements: elements, comparator: <)
         }
     }
 }
