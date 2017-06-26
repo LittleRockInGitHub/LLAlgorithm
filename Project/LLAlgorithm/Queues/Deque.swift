@@ -1,5 +1,5 @@
 //
-//  Dequeue.swift
+//  Deque.swift
 //  LLAlgorithm
 //
 //  Created by Rock Young on 2017/6/26.
@@ -8,23 +8,27 @@
 
 import Foundation
 
-public struct Dequeue<E> {
+typealias Deque<E> = AnyDeque<Array<E>>
+
+public struct AnyDeque<C : BidirectionalCollection & RangeReplaceableCollection> {
     
-    private(set) public var elements: [E]
+    public typealias E = C.Element
     
-    public init(elements: [E]) {
+    private(set) public var elements: C
+    
+    public init(_ elements: C) {
         self.elements = elements
     }
     
     public struct Head: AbstractQueue {
         
-        public typealias Elements = [E]
+        public typealias Elements = C
         
-        private(set) public var elements: [E]
+        private(set) public var elements: C
         
         @discardableResult
         public mutating func enqueue(_ element: E) -> Bool {
-            elements.insert(element, at: 0)
+            elements.insert(element, at: elements.startIndex)
             return true
         }
         
@@ -39,9 +43,9 @@ public struct Dequeue<E> {
     
     public struct Tail: AbstractQueue {
         
-        public typealias Elements = [E]
+        public typealias Elements = C
         
-        private(set) public var elements: [E]
+        private(set) public var elements: C
         
         @discardableResult
         public mutating func enqueue(_ element: E) -> Bool {
@@ -58,7 +62,7 @@ public struct Dequeue<E> {
         }
     }
     
-    public var head: Dequeue.Head {
+    public var head: AnyDeque<C>.Head {
         get {
             return Head(elements: elements)
         }
@@ -67,7 +71,7 @@ public struct Dequeue<E> {
         }
     }
     
-    public var tail: Dequeue<E>.Tail {
+    public var tail: AnyDeque<C>.Tail {
         get {
             return Tail(elements: elements)
         }

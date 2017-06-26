@@ -8,28 +8,32 @@
 
 import Foundation
 
-public struct Stack<E> : AbstractQueue {
+public typealias Stack<E> = AnyStack<Array<E>>
+
+public struct AnyStack<C : BidirectionalCollection & RangeReplaceableCollection> : AbstractQueue {
     
-    public typealias Elements = [E]
+    public typealias Elements = C
+    public typealias E = C.Element
     
-    private(set) public var elements: [E]
+    private var deque: AnyDeque<C>
     
-    public init(elements: Elements) {
-        self.elements = elements
+    public var elements: C { return deque.elements }
+    
+    public init(_ elements: C) {
+        self.deque = AnyDeque(elements)
     }
     
     @discardableResult
     public mutating func enqueue(_ element: E) -> Bool {
-        elements.append(element)
-        return true
+        return deque.tail.enqueue(element)
     }
     
     public mutating func dequeue() -> E? {
-        return elements.isEmpty ? nil : elements.removeLast()
+        return deque.tail.dequeue()
     }
     
     public func peek() -> E? {
-        return elements.last
+        return deque.tail.peek()
     }
 }
 
