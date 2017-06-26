@@ -2,8 +2,8 @@
 //  LLAlgorithm.h
 //  LLAlgorithm
 //
-//  Created by Rock Yang on 2017/6/26.
-//  Copyright © 2017年 Rock Yang. All rights reserved.
+//  Created by Rock Young on 2017/6/26.
+//  Copyright © 2017年 Rock Young. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

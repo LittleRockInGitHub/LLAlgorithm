@@ -1,5 +1,5 @@
 //
-//  Queue.swift
+//  Stack.swift
 //  LLAlgorithm
 //
 //  Created by Rock Young on 2017/6/26.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Queue<E> : AbstractQueue {
+public struct Stack<E> : AbstractQueue {
     
     public typealias Elements = [E]
     
@@ -21,11 +21,11 @@ public struct Queue<E> : AbstractQueue {
     }
     
     public mutating func dequeue() -> E? {
-        return elements.isEmpty ? nil : elements.removeFirst()
+        return elements.isEmpty ? nil : elements.removeLast()
     }
     
     public func peek() -> E? {
-        return elements.first
+        return elements.last
     }
 }
 
