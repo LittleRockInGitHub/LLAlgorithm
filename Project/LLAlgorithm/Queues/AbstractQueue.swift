@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol AbstractQueue {
+public protocol AbstractQueue : IteratorProtocol, Sequence {
     
     associatedtype Elements : Collection
     
@@ -31,4 +31,11 @@ extension AbstractQueue {
     public var isEmpty: Bool { return elements.isEmpty }
     
     public var count: Elements.IndexDistance { return elements.count }
+}
+
+extension AbstractQueue {
+    
+    public mutating func next() -> Elements.Element? {
+        return dequeue()
+    }
 }
