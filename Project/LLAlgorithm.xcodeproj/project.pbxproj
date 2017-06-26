@@ -11,6 +11,7 @@
 		9D04C4D01F00F47E00D46EEA /* LLAlgorithmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D04C4CF1F00F47E00D46EEA /* LLAlgorithmTests.swift */; };
 		9D04C4D21F00F47E00D46EEA /* LLAlgorithm.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D04C4C41F00F47E00D46EEA /* LLAlgorithm.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9DCF9CF21F00F4FD00FF0E97 /* AbstractQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCF9CF11F00F4FD00FF0E97 /* AbstractQueue.swift */; };
+		9DCF9CF41F00F65700FF0E97 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCF9CF31F00F65700FF0E97 /* Queue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +32,7 @@
 		9D04C4CF1F00F47E00D46EEA /* LLAlgorithmTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLAlgorithmTests.swift; sourceTree = "<group>"; };
 		9D04C4D11F00F47E00D46EEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9DCF9CF11F00F4FD00FF0E97 /* AbstractQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractQueue.swift; sourceTree = "<group>"; };
+		9DCF9CF31F00F65700FF0E97 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				9DCF9CF11F00F4FD00FF0E97 /* AbstractQueue.swift */,
+				9DCF9CF31F00F65700FF0E97 /* Queue.swift */,
 			);
 			path = Queues;
 			sourceTree = "<group>";
@@ -209,6 +212,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9DCF9CF21F00F4FD00FF0E97 /* AbstractQueue.swift in Sources */,
+				9DCF9CF41F00F65700FF0E97 /* Queue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
