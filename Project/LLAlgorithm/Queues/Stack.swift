@@ -23,6 +23,10 @@ public struct AnyStack<C : BidirectionalCollection & RangeReplaceableCollection>
         self.deque = AnyDeque(elements)
     }
     
+    public init() {
+        self.deque = AnyDeque<C>()
+    }
+    
     @discardableResult
     public mutating func enqueue(_ element: E) -> Bool {
         return deque.tail.enqueue(element)

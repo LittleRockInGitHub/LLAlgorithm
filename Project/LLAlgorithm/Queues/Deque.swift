@@ -20,6 +20,10 @@ public struct AnyDeque<C : BidirectionalCollection & RangeReplaceableCollection>
         self.elements = elements
     }
     
+    public init() {
+        self.elements = C.init()
+    }
+    
     public struct Head: AbstractQueue {
         
         public typealias Elements = C
