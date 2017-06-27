@@ -10,7 +10,8 @@
 		9D04C4CB1F00F47E00D46EEA /* LLAlgorithm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D04C4C11F00F47E00D46EEA /* LLAlgorithm.framework */; };
 		9D04C4D01F00F47E00D46EEA /* LLAlgorithmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D04C4CF1F00F47E00D46EEA /* LLAlgorithmTests.swift */; };
 		9D04C4D21F00F47E00D46EEA /* LLAlgorithm.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D04C4C41F00F47E00D46EEA /* LLAlgorithm.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9D4D4A881F01195C0093E8FB /* DequeueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4D4A871F01195C0093E8FB /* DequeueTests.swift */; };
+		9D0905531F025E8400F89E68 /* LinkedListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0905521F025E8400F89E68 /* LinkedListTests.swift */; };
+		9D4D4A8A1F0132730093E8FB /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4D4A891F0132730093E8FB /* LinkedList.swift */; };
 		9DAFAE9B1F01102300F833BE /* BinaryHeap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAFAE9A1F01102300F833BE /* BinaryHeap.swift */; };
 		9DCF9CF21F00F4FD00FF0E97 /* AbstractQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCF9CF11F00F4FD00FF0E97 /* AbstractQueue.swift */; };
 		9DCF9CF41F00F65700FF0E97 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCF9CF31F00F65700FF0E97 /* Queue.swift */; };
@@ -36,7 +37,8 @@
 		9D04C4CA1F00F47E00D46EEA /* LLAlgorithmTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LLAlgorithmTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D04C4CF1F00F47E00D46EEA /* LLAlgorithmTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLAlgorithmTests.swift; sourceTree = "<group>"; };
 		9D04C4D11F00F47E00D46EEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9D4D4A871F01195C0093E8FB /* DequeueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DequeueTests.swift; sourceTree = "<group>"; };
+		9D0905521F025E8400F89E68 /* LinkedListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedListTests.swift; sourceTree = "<group>"; };
+		9D4D4A891F0132730093E8FB /* LinkedList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedList.swift; sourceTree = "<group>"; };
 		9DAFAE9A1F01102300F833BE /* BinaryHeap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinaryHeap.swift; sourceTree = "<group>"; };
 		9DCF9CF11F00F4FD00FF0E97 /* AbstractQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractQueue.swift; sourceTree = "<group>"; };
 		9DCF9CF31F00F65700FF0E97 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
@@ -97,7 +99,7 @@
 			children = (
 				9D04C4CF1F00F47E00D46EEA /* LLAlgorithmTests.swift */,
 				9D04C4D11F00F47E00D46EEA /* Info.plist */,
-				9D4D4A871F01195C0093E8FB /* DequeueTests.swift */,
+				9D0905521F025E8400F89E68 /* LinkedListTests.swift */,
 			);
 			path = LLAlgorithmTests;
 			sourceTree = "<group>";
@@ -111,6 +113,7 @@
 				9DEA26FF1F00FE500022E36E /* Deque.swift */,
 				9DFA01F21F010E3200E956B3 /* PriorityQueue.swift */,
 				9DAFAE9A1F01102300F833BE /* BinaryHeap.swift */,
+				9D4D4A891F0132730093E8FB /* LinkedList.swift */,
 			);
 			path = Queues;
 			sourceTree = "<group>";
@@ -233,6 +236,7 @@
 				9DFA01F31F010E3200E956B3 /* PriorityQueue.swift in Sources */,
 				9DEA27001F00FE500022E36E /* Deque.swift in Sources */,
 				9DCF9CF41F00F65700FF0E97 /* Queue.swift in Sources */,
+				9D4D4A8A1F0132730093E8FB /* LinkedList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,7 +244,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D4D4A881F01195C0093E8FB /* DequeueTests.swift in Sources */,
+				9D0905531F025E8400F89E68 /* LinkedListTests.swift in Sources */,
 				9D04C4D01F00F47E00D46EEA /* LLAlgorithmTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
