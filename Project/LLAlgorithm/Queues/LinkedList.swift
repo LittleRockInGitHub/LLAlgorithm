@@ -8,7 +8,7 @@
 
 import Foundation
 
-public final class LinkedList<E>: BidirectionalCollection, RangeReplaceableCollection, MutableCollection, CustomStringConvertible {
+public final class LinkedList<E>: BidirectionalCollection, RangeReplaceableCollection, MutableCollection, CustomStringConvertible, NSCopying {
     
     public typealias Index = Int
     
@@ -168,10 +168,14 @@ public final class LinkedList<E>: BidirectionalCollection, RangeReplaceableColle
             return "[count: \(count)]"
         }
     }
-}
-
-func a() {
-    var list = LinkedList<Int>()
-    list.replaceSubrange(0..<1, with: [12])
     
+    public func copy(with zone: NSZone? = nil) -> Any {
+        var reval = LinkedList<E>()
+        
+        for v in self {
+            reval.append(v)
+        }
+        
+        return reval
+    }
 }

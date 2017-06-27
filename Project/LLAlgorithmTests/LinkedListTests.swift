@@ -135,6 +135,21 @@ class LinkedListTests: XCTestCase {
         
         XCTAssertEqual(list[0], 1)
     }
+    
+    func testCopy() {
+        
+        let sameList = list
+        
+        list.append(1)
+        
+        XCTAssertEqual(sameList.count, 1)
+        
+        let copiedList = list.copy() as! LinkedList<Int>
+        
+        list.append(2)
+        
+        XCTAssertEqual(copiedList.count, 1)
+    }
 }
 
 //extension LinkedList where Element : Equatable  {
