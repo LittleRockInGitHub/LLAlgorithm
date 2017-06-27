@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class LinkedList<E>: BidirectionalCollection, RangeReplaceableCollection, CustomStringConvertible {
+public final class LinkedList<E>: BidirectionalCollection, RangeReplaceableCollection, MutableCollection, CustomStringConvertible {
     
     public typealias Index = Int
     
@@ -58,21 +58,27 @@ public class LinkedList<E>: BidirectionalCollection, RangeReplaceableCollection,
         }
         
         static func nodes<C: Collection>(_ c: C) -> (Node, Node, Int) where C.Element == E {
+            
             precondition(!c.isEmpty)
             
-            var count = 1
-            let start = Node()
-            start.element = c.first!
+            if let list = c as? LinkedList<E>  {
+                return (list.head.next, list.tail.previous, list.count)
+            } else {
             
-            var end = start
-            for e in c.dropFirst() {
-                let node = Node(e)
-                end.next = node
-                end = end.next
-                count += 1
+                var count = 1
+                let start = Node()
+                start.element = c.first!
+                
+                var end = start
+                for e in c.dropFirst() {
+                    let node = Node(e)
+                    end.next = node
+                    end = end.next
+                    count += 1
+                }
+                
+                return (start, end, count)
             }
-            
-            return (start, end, count)
         }
     }
     
@@ -92,6 +98,12 @@ public class LinkedList<E>: BidirectionalCollection, RangeReplaceableCollection,
         self.tail = tail
     }
     
+    public convenience init<C : Collection>(_ elements: C) where C.Element == E {
+        self.init()
+        
+        self.replaceSubrange(0..<0, with: elements)
+    }
+    
     public var startIndex: Int { return 0 }
     
     public var endIndex: Int { return count }
@@ -101,8 +113,14 @@ public class LinkedList<E>: BidirectionalCollection, RangeReplaceableCollection,
     }
     
     public subscript(index: Int) -> E {
-        precondition((startIndex..<endIndex).contains(index))
-        return node(at: index).element
+        get {
+            precondition((startIndex..<endIndex).contains(index))
+            return node(at: index).element
+        }
+        set {
+            precondition((startIndex..<endIndex).contains(index))
+            node(at: index).element = newValue
+        }
     }
     
     private func node(at index: Int) -> Node {

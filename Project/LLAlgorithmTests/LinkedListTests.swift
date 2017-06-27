@@ -80,7 +80,7 @@ class LinkedListTests: XCTestCase {
     
     func testReplace() {
         
-        func _test<R>(_ subrange: R, with newElements: [Int]) where R : RangeExpression, R.Bound == Int {
+        func _test<R, C>(_ subrange: R, with newElements: C) where R : RangeExpression, R.Bound == Int, C : Collection, C.Element == Int {
             
             array.replaceSubrange(subrange, with: newElements)
             list.replaceSubrange(subrange, with: newElements)
@@ -114,11 +114,26 @@ class LinkedListTests: XCTestCase {
         
         _test(0..<0, with: [1]) // [1]
         
-        _test(0..<0, with: [1]) // [1]
+        _test(0..<1, with: [2]) // [2]
+            
+        _test(1..<1, with: [2, 3, 4]) // [2, 3, 4]
         
-        for _ in 0..<10000 {
+        _test(0..<3, with: [])  // []
+        
+        for _ in 0..<100 {
             _test(_randomRange(in: array), with: _randomArray())
         }
+        
+        for _ in 0..<100 {
+            _test(_randomRange(in: array), with: LinkedList<Int>(_randomArray()))
+        }
+    }
+    
+    func testSubscript() {
+        
+        list.append(1)
+        
+        XCTAssertEqual(list[0], 1)
     }
 }
 
