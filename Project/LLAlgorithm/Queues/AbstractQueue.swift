@@ -39,3 +39,27 @@ extension AbstractQueue {
         return dequeue()
     }
 }
+
+extension AbstractQueue {
+    
+    @discardableResult
+    public mutating func enqueue<C : Collection>(_ newElements: C) -> Int where C.Element == Elements.Element {
+        var count = 0
+        for e in newElements {
+            if enqueue(e) {
+                count += 1
+            }
+        }
+        return count
+    }
+    
+    public mutating func dequeue(_ maxLength: Int) -> [Elements.Element] {
+        var reval: [Elements.Element] = []
+        for _ in 0..<maxLength {
+            if let e = dequeue() {
+                reval.append(e)
+            }
+        }
+        return reval
+    }
+}

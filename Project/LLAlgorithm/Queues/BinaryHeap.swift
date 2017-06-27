@@ -17,8 +17,7 @@ public struct BinaryHeap<E> : PriorityQueue {
     public let comparator: (E, E) -> Bool
     
     init<S : Sequence>(elements: S, comparator: @escaping (E, E) -> Bool) where S.Element == E {
-        var elements = Array(elements)
-        self.elements = elements
+        self.elements = Array(elements)
         self.comparator = comparator
         
         self.construct()
