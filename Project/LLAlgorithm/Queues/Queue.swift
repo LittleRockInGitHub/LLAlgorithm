@@ -9,6 +9,7 @@
 import Foundation
 
 public typealias Queue<E> = AnyQueue<Array<E>>
+public typealias ListQueue<E> = AnyQueue<LinkedList<E>>
 
 public struct AnyQueue<C : BidirectionalCollection & RangeReplaceableCollection> : AbstractQueue {
     

@@ -9,6 +9,7 @@
 import Foundation
 
 public typealias Stack<E> = AnyStack<Array<E>>
+public typealias ListStack<E> = AnyStack<LinkedList<E>>
 
 public struct AnyStack<C : BidirectionalCollection & RangeReplaceableCollection> : AbstractQueue {
     

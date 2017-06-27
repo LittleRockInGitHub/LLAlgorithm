@@ -8,7 +8,8 @@
 
 import Foundation
 
-typealias Deque<E> = AnyDeque<Array<E>>
+public typealias Deque<E> = AnyDeque<Array<E>>
+public typealias ListDeque<E> = AnyDeque<LinkedList<E>>
 
 public struct AnyDeque<C : BidirectionalCollection & RangeReplaceableCollection> {
     
