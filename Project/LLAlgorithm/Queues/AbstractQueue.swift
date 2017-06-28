@@ -10,28 +10,25 @@ import Foundation
 
 public protocol AbstractQueue : IteratorProtocol, Sequence {
     
-    associatedtype Elements : Collection
-    
-    var elements: Elements { get }
+    var isEmpty: Bool { get }
     
     @discardableResult
-    mutating func enqueue(_ element: Elements.Element) -> Bool
+    mutating func enqueue(_ element: Element) -> Bool
     
-    mutating func dequeue() -> Elements.Element?
+    mutating func dequeue() -> Element?
     
-    func peek() -> Elements.Element?
+    func peek() -> Element?
+    
 }
 
 extension AbstractQueue {
     
-    public var isEmpty: Bool { return elements.isEmpty }
-    
-    public var count: Elements.IndexDistance { return elements.count }
+    public var isEmpty: Bool { return peek() == nil }
 }
 
 extension AbstractQueue {
     
-    public mutating func next() -> Elements.Element? {
+    public mutating func next() -> Element? {
         return dequeue()
     }
 }
@@ -39,7 +36,7 @@ extension AbstractQueue {
 extension AbstractQueue {
     
     @discardableResult
-    public mutating func enqueue<C : Collection>(_ newElements: C) -> Int where C.Element == Elements.Element {
+    public mutating func enqueue<C : Collection>(_ newElements: C) -> Int where C.Element == Element {
         var count = 0
         for e in newElements {
             if enqueue(e) {
@@ -49,8 +46,8 @@ extension AbstractQueue {
         return count
     }
     
-    public mutating func dequeue(_ maxLength: Int) -> [Elements.Element] {
-        var reval: [Elements.Element] = []
+    public mutating func dequeue(_ maxLength: Int) -> [Element] {
+        var reval: [Element] = []
         for _ in 0..<maxLength {
             if let e = dequeue() {
                 reval.append(e)

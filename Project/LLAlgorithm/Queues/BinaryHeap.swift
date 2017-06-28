@@ -10,9 +10,9 @@ import Foundation
 
 public struct BinaryHeap<E> : PriorityQueue {
     
-    public typealias Elements = [E]
+    public typealias Element = E
     
-    private(set) public var elements: [E]
+    private var elements: [E]
     
     public let comparator: (E, E) -> Bool
     

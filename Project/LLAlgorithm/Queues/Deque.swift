@@ -8,14 +8,12 @@
 
 import Foundation
 
-public typealias Deque<E> = AnyDeque<Array<E>>
-public typealias ListDeque<E> = AnyDeque<LinkedList<E>>
+public typealias Deque<E> = DequeWrapper<Array<E>>
+public typealias ListDeque<E> = DequeWrapper<LinkedList<E>>
 
-public struct AnyDeque<C : BidirectionalCollection & RangeReplaceableCollection> {
+public struct DequeWrapper<C : BidirectionalCollection & RangeReplaceableCollection> {
     
-    public typealias E = C.Element
-    
-    private(set) public var elements: C
+    private var elements: C
     
     public init(_ elements: C) {
         self.elements = elements
@@ -27,58 +25,66 @@ public struct AnyDeque<C : BidirectionalCollection & RangeReplaceableCollection>
     
     public struct Head: AbstractQueue {
         
-        public typealias Elements = C
+        public typealias Element = C.Element
         
-        private(set) public var elements: C
+        private(set) fileprivate var elements: C
+        
+        init(_ elements: C) {
+            self.elements = elements
+        }
         
         @discardableResult
-        public mutating func enqueue(_ element: E) -> Bool {
+        public mutating func enqueue(_ element: Element) -> Bool {
             elements.insert(element, at: elements.startIndex)
             return true
         }
         
-        public mutating func dequeue() -> E? {
+        public mutating func dequeue() -> Element? {
             return elements.isEmpty ? nil : elements.removeFirst()
         }
         
-        public func peek() -> E? {
+        public func peek() -> Element? {
             return elements.first
         }
     }
     
     public struct Tail: AbstractQueue {
         
-        public typealias Elements = C
+        public typealias Element = C.Element
         
-        private(set) public var elements: C
+        private(set) fileprivate var elements: C
+        
+        init(_ elements: C) {
+            self.elements = elements
+        }
         
         @discardableResult
-        public mutating func enqueue(_ element: E) -> Bool {
+        public mutating func enqueue(_ element: Element) -> Bool {
             elements.append(element)
             return true
         }
         
-        public mutating func dequeue() -> E? {
+        public mutating func dequeue() -> Element? {
             return elements.isEmpty ? nil : elements.removeLast()
         }
         
-        public func peek() -> E? {
+        public func peek() -> Element? {
             return elements.last
         }
     }
     
-    public var head: AnyDeque<C>.Head {
+    public var head: DequeWrapper<C>.Head {
         get {
-            return Head(elements: elements)
+            return Head(elements)
         }
         set {
             elements = newValue.elements
         }
     }
     
-    public var tail: AnyDeque<C>.Tail {
+    public var tail: DequeWrapper<C>.Tail {
         get {
-            return Tail(elements: elements)
+            return Tail(elements)
         }
         set {
             elements = newValue.elements

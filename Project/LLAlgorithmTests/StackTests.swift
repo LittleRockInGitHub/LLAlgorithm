@@ -11,19 +11,19 @@ import LLAlgorithm
 
 extension XCTestCase {
     
-    func _testStack<Q>(_ stack: Q) where Q : AbstractQueue, Q.Elements.Element == Int {
+    func _testStack<Q>(_ stack: Q) where Q : AbstractQueue, Q.Element == Int {
         
         var stack = stack
         XCTAssertEqual(stack.enqueue(1), true)
         
-        XCTAssertEqual(stack.count, 1)
+        XCTAssertEqual(stack.isEmpty, false)
         
         XCTAssertEqual(stack.dequeue(), 1)
         
-        XCTAssertEqual(stack.count, 0)
+        XCTAssertEqual(stack.isEmpty, true)
         
         XCTAssertEqual(stack.enqueue([1, 2]), 2)
-        XCTAssertEqual(stack.count, 2)
+        XCTAssertEqual(stack.isEmpty, false)
         
         XCTAssertEqual(stack.peek(), 2)
         XCTAssertEqual(stack.dequeue(), 2)

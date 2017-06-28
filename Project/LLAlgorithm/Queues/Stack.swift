@@ -8,36 +8,33 @@
 
 import Foundation
 
-public typealias Stack<E> = AnyStack<Array<E>>
-public typealias ListStack<E> = AnyStack<LinkedList<E>>
+public typealias Stack<E> = StackWrapper<Array<E>>
+public typealias ListStack<E> = StackWrapper<LinkedList<E>>
 
-public struct AnyStack<C : BidirectionalCollection & RangeReplaceableCollection> : AbstractQueue {
+public struct StackWrapper<C : BidirectionalCollection & RangeReplaceableCollection> : AbstractQueue {
     
-    public typealias Elements = C
-    public typealias E = C.Element
+    public typealias Element = C.Element
     
-    private var deque: AnyDeque<C>
-    
-    public var elements: C { return deque.elements }
+    private var deque: DequeWrapper<C>
     
     public init(_ elements: C) {
-        self.deque = AnyDeque(elements)
+        self.deque = DequeWrapper(elements)
     }
     
     public init() {
-        self.deque = AnyDeque<C>()
+        self.deque = DequeWrapper<C>()
     }
     
     @discardableResult
-    public mutating func enqueue(_ element: E) -> Bool {
+    public mutating func enqueue(_ element: Element) -> Bool {
         return deque.tail.enqueue(element)
     }
     
-    public mutating func dequeue() -> E? {
+    public mutating func dequeue() -> Element? {
         return deque.tail.dequeue()
     }
     
-    public func peek() -> E? {
+    public func peek() -> Element? {
         return deque.tail.peek()
     }
 }

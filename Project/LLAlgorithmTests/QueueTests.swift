@@ -1,5 +1,5 @@
 //
-//  ArrayQueueTests.swift
+//  DequeTest.swift
 //  LLAlgorithmTests
 //
 //  Created by Rock Yang on 2017/6/28.
@@ -11,19 +11,19 @@ import LLAlgorithm
 
 extension XCTestCase {
     
-    func _testQueue<Q>(_ queue: Q) where Q : AbstractQueue, Q.Elements.Element == Int {
+    func _testQueue<Q>(_ queue: Q) where Q : AbstractQueue, Q.Element == Int {
         
         var queue = queue
         XCTAssertEqual(queue.enqueue(1), true)
         
-        XCTAssertEqual(queue.count, 1)
+        XCTAssertEqual(queue.isEmpty, false)
         
         XCTAssertEqual(queue.dequeue(), 1)
         
-        XCTAssertEqual(queue.count, 0)
+        XCTAssertEqual(queue.isEmpty, true)
         
         XCTAssertEqual(queue.enqueue([1, 2]), 2)
-        XCTAssertEqual(queue.count, 2)
+        XCTAssertEqual(queue.isEmpty, false)
         
         XCTAssertEqual(queue.peek(), 1)
         XCTAssertEqual(queue.dequeue(), 1)
@@ -32,7 +32,7 @@ extension XCTestCase {
     }
 }
 
-class ArrayQueueTests: XCTestCase {
+class QueueTests: XCTestCase {
     
     func testArrayQueue() {
         self._testQueue(Queue<Int>())

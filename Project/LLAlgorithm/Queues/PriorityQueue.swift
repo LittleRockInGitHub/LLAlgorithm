@@ -10,7 +10,9 @@ import Foundation
 
 public protocol PriorityQueue : AbstractQueue {
     
-    var comparator: (Elements.Element, Elements.Element) -> Bool { get }
+    var comparator: (Element, Element) -> Bool { get }
     
 }
+
+
 

@@ -1,5 +1,5 @@
 //
-//  ArrayDequeTests.swift
+//  DequeTest.swift
 //  LLAlgorithmTests
 //
 //  Created by Rock Yang on 2017/6/27.
@@ -11,7 +11,7 @@ import LLAlgorithm
 
 extension XCTestCase {
     
-    func _testDeque<C>(_ deque: AnyDeque<C>) where C.Element == Int {
+    func _testDeque<C>(_ deque: DequeWrapper<C>) where C.Element == Int {
         
         var deque = deque
     
@@ -41,7 +41,7 @@ extension XCTestCase {
     }
 }
 
-class ArrayDequeTest: XCTestCase {
+class DequeTest: XCTestCase {
     
     override func setUp() {
         super.setUp()
