@@ -9,56 +9,15 @@
 import XCTest
 import LLAlgorithm
 
-class ArrayDequeTest: XCTestCase {
+extension XCTestCase {
     
-    var deque: AnyDeque<Array<Int>>!
+    func _testDeque<C>(_ deque: AnyDeque<C>) where C.Element == Int {
+        
+        var deque = deque
     
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        self._testStack(Deque<Int>().head)
         
-        deque = Deque<Int>()
-    }
-    
-    func testHead() {
-        
-        XCTAssertEqual(deque.head.enqueue(1), true)
-        
-        XCTAssertEqual(deque.elements.count, 1)
-        
-        XCTAssertEqual(deque.head.dequeue(), 1)
-        
-        XCTAssertEqual(deque.elements.count, 0)
-        
-        XCTAssertEqual(deque.head.enqueue([1, 2]), 2)
-        XCTAssertEqual(deque.elements.count, 2)
-        
-        XCTAssertEqual(deque.head.peek(), 2)
-        XCTAssertEqual(deque.head.dequeue(), 2)
-        XCTAssertEqual(deque.head.dequeue(), 1)
-        XCTAssertEqual(deque.head.dequeue(), nil)
-    }
-    
-    func testTail() {
-        
-        XCTAssertEqual(deque.tail.enqueue(1), true)
-        
-        XCTAssertEqual(deque.elements.count, 1)
-        
-        XCTAssertEqual(deque.tail.dequeue(), 1)
-        
-        XCTAssertEqual(deque.elements.count, 0)
-        
-        XCTAssertEqual(deque.head.enqueue([1, 2]), 2)
-        XCTAssertEqual(deque.elements.count, 2)
-        
-        XCTAssertEqual(deque.head.peek(), 2)
-        XCTAssertEqual(deque.head.dequeue(), 2)
-        XCTAssertEqual(deque.head.dequeue(), 1)
-        XCTAssertEqual(deque.head.dequeue(), nil)
-    }
-    
-    func testDeque() {
+        self._testStack(Deque<Int>().tail)
         
         XCTAssertEqual(deque.head.enqueue(1), true)
         XCTAssertEqual(deque.tail.dequeue(), 1)
@@ -79,5 +38,28 @@ class ArrayDequeTest: XCTestCase {
         XCTAssertEqual(deque.head.dequeue(), 2)
         XCTAssertEqual(deque.head.dequeue(), nil)
         XCTAssertEqual(deque.tail.dequeue(), nil)
+    }
+}
+
+class ArrayDequeTest: XCTestCase {
+    
+    override func setUp() {
+        super.setUp()
+        // Put setup code here. This method is called before the invocation of each test method in the class.
+    }
+    
+    func testHead() {
+        self._testStack(Deque<Int>().head)
+        self._testStack(ListDeque<Int>().head)
+    }
+    
+    func testTail() {
+        self._testStack(Deque<Int>().tail)
+        self._testStack(ListDeque<Int>().tail)
+    }
+    
+    func testDeque() {
+        self._testDeque(Deque<Int>())
+        self._testDeque(ListDeque<Int>())
     }
 }

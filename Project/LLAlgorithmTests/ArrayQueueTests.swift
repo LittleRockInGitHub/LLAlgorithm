@@ -9,24 +9,11 @@
 import XCTest
 import LLAlgorithm
 
-class ArrayQueueTests: XCTestCase {
+extension XCTestCase {
     
-    var queue: AnyQueue<Array<Int>>!
-    
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    func _testQueue<Q>(_ queue: Q) where Q : AbstractQueue, Q.Elements.Element == Int {
         
-        queue = Queue<Int>()
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
-    func testQueue() {
-        
+        var queue = queue
         XCTAssertEqual(queue.enqueue(1), true)
         
         XCTAssertEqual(queue.count, 1)
@@ -43,5 +30,15 @@ class ArrayQueueTests: XCTestCase {
         XCTAssertEqual(queue.dequeue(), 2)
         XCTAssertEqual(queue.dequeue(), nil)
     }
+}
+
+class ArrayQueueTests: XCTestCase {
     
+    func testArrayQueue() {
+        self._testQueue(Queue<Int>())
+    }
+    
+    func testListQueue() {
+        self._testQueue(ListQueue<Int>())
+    }
 }

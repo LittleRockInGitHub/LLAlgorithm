@@ -14,10 +14,6 @@ public protocol AbstractQueue : IteratorProtocol, Sequence {
     
     var elements: Elements { get }
     
-    var isEmpty: Bool { get }
-    
-    var count: Elements.IndexDistance { get }
-    
     @discardableResult
     mutating func enqueue(_ element: Elements.Element) -> Bool
     

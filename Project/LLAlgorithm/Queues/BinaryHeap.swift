@@ -20,18 +20,18 @@ public struct BinaryHeap<E> : PriorityQueue {
         self.elements = Array(elements)
         self.comparator = comparator
         
-        self.construct()
+        self.heapify()
     }
     
-    private mutating func construct() {
+    private mutating func heapify() {
         var idx = elements.count / 2 - 1
         while idx >= 0 {
-            sink(idx)
+            siftDown(idx)
             idx -= 1
         }
     }
     
-    private mutating func sink(_ idx: Int) {
+    private mutating func siftDown(_ idx: Int) {
         
         var idx = idx
         
@@ -47,7 +47,7 @@ public struct BinaryHeap<E> : PriorityQueue {
         }
     }
     
-    private mutating func swim(_ idx: Int) {
+    private mutating func siftUp(_ idx: Int) {
         
         var idx = idx
         
@@ -60,7 +60,7 @@ public struct BinaryHeap<E> : PriorityQueue {
     @discardableResult
     public mutating func enqueue(_ element: E) -> Bool {
         elements.append(element)
-        swim(elements.count - 1)
+        siftUp(elements.count - 1)
         return true
     }
     
@@ -72,7 +72,7 @@ public struct BinaryHeap<E> : PriorityQueue {
         
         let reval = elements.removeLast()
         
-        sink(0)
+        siftDown(0)
         
         return reval
     }
