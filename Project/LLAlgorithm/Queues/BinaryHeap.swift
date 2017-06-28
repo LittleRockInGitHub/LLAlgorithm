@@ -14,9 +14,13 @@ public struct BinaryHeap<E> : PriorityQueue {
     
     private var elements: [E]
     
-    public let comparator: (E, E) -> Bool
+    private let comparator: (E, E) -> Bool
     
-    init<S : Sequence>(elements: S, comparator: @escaping (E, E) -> Bool) where S.Element == E {
+    public func isHigherriority(_ lhs: E, than rhs: E) -> Bool {
+        return comparator(lhs, rhs)
+    }
+    
+    init<S : Sequence>(_ elements: S, isHigherPriorityThan comparator: @escaping (E, E) -> Bool) where S.Element == E {
         self.elements = Array(elements)
         self.comparator = comparator
         
@@ -31,29 +35,40 @@ public struct BinaryHeap<E> : PriorityQueue {
         }
     }
     
+    private func higherChild(at idx: Int) -> Int? {
+        
+        let left = idx * 2 + 1
+        
+        guard left < elements.count else { return nil }
+        
+        let right = idx * 2 + 2
+        
+        if right < elements.count && isHigherriority(elements[right], than: elements[left]) {
+            return right
+        } else {
+            return left
+        }
+    }
+    
     private mutating func siftDown(_ idx: Int) {
         
-        var idx = idx
-        
-        while 2 * idx + 1 < elements.count {
-            
-            var j = 2 * idx + 1
-            
-            if j < (elements.count - 1) && comparator(elements[j], elements[j + 1]) { j += 1 }
-            if !comparator(elements[idx], elements[j]) { break }
-            
-            elements.swapAt(idx, j)
-            idx = j
+        var sifting = idx
+        while let child = higherChild(at: sifting), isHigherriority(elements[child], than: elements[sifting]) {
+            elements.swapAt(sifting, child)
+            sifting = child
         }
+    }
+    
+    private func parent(at idx: Int) -> Int? {
+        return idx > 0 ? (idx - 1) / 2 : nil
     }
     
     private mutating func siftUp(_ idx: Int) {
         
-        var idx = idx
-        
-        while idx > 0 && comparator(elements[(idx - 1) / 2], elements[idx]) {
-            elements.swapAt((idx - 1) / 2, idx)
-            idx = (idx - 1) / 2
+        var sifting = idx
+        while let parent = parent(at: sifting), isHigherriority(elements[sifting], than: elements[parent]) {
+            elements.swapAt(parent, sifting)
+            sifting = parent
         }
     }
     
@@ -65,16 +80,14 @@ public struct BinaryHeap<E> : PriorityQueue {
     }
     
     public mutating func dequeue() -> E? {
-        
-        guard elements.isEmpty else { return nil }
+        guard !elements.isEmpty else { return nil }
         
         elements.swapAt(0, elements.count - 1)
         
-        let reval = elements.removeLast()
-        
-        siftDown(0)
-        
-        return reval
+        defer {
+            siftDown(0)
+        }
+        return elements.removeLast()
     }
     
     public func peek() -> E? {
@@ -84,11 +97,11 @@ public struct BinaryHeap<E> : PriorityQueue {
 
 extension BinaryHeap where E : Comparable {
     
-    public init<S : Sequence>(elements: S, asMaxHeap: Bool = true) where S.Element == E {
+    public init<S : Sequence>(_ elements: S, asMaxHeap: Bool = true) where S.Element == E {
         if asMaxHeap {
-            self.init(elements: elements, comparator: >)
+            self.init(elements, isHigherPriorityThan: >)
         } else {
-            self.init(elements: elements, comparator: <)
+            self.init(elements, isHigherPriorityThan: <)
         }
     }
 }

@@ -7,6 +7,66 @@
 //
 
 import XCTest
+import LLAlgorithm
+
+extension XCTestCase {
+    
+    func _testMaxPriorityQueue<Q : AbstractQueue>(_ heap: Q) where Q.Element == Int {
+        
+        var heap = heap
+        
+        heap.clear()
+        XCTAssertEqual(heap.isEmpty, true)
+        
+        XCTAssertNil(heap.dequeue())
+        
+        XCTAssertEqual(heap.enqueue(1), true)
+        XCTAssertEqual(heap.isEmpty, false)
+        XCTAssertEqual(heap.peek(), 1)
+        
+        XCTAssertEqual(heap.enqueue(1), true)
+        XCTAssertEqual(heap.isEmpty, false)
+        XCTAssertEqual(heap.peek(), 1)
+        
+        XCTAssertEqual(heap.enqueue(0), true)
+        XCTAssertEqual(heap.isEmpty, false)
+        XCTAssertEqual(heap.dequeue(), 1)
+        XCTAssertEqual(heap.peek(), 1)
+        
+        XCTAssertEqual(heap.enqueue([1, 2, 4, -1, 3]), 5)
+        XCTAssertEqual(heap.peek(), 4)
+        XCTAssertEqual(heap.dequeue(maxLength: 10), [4, 3, 2, 1, 1, 0, -1])
+        XCTAssertEqual(heap.isEmpty, true)
+    }
+    
+    func _testMinPriorityQueue<Q : AbstractQueue>(_ heap: Q) where Q.Element == Int {
+        
+        var heap = heap
+        
+        heap.clear()
+        XCTAssertEqual(heap.isEmpty, true)
+        
+        XCTAssertNil(heap.dequeue())
+        
+        XCTAssertEqual(heap.enqueue(1), true)
+        XCTAssertEqual(heap.isEmpty, false)
+        XCTAssertEqual(heap.peek(), 1)
+        
+        XCTAssertEqual(heap.enqueue(1), true)
+        XCTAssertEqual(heap.isEmpty, false)
+        XCTAssertEqual(heap.peek(), 1)
+        
+        XCTAssertEqual(heap.enqueue(0), true)
+        XCTAssertEqual(heap.isEmpty, false)
+        XCTAssertEqual(heap.dequeue(), 0)
+        XCTAssertEqual(heap.peek(), 1)
+        
+        XCTAssertEqual(heap.enqueue([1, 2, 4, -1, 3]), 5)
+        XCTAssertEqual(heap.peek(), -1)
+        XCTAssertEqual(heap.dequeue(maxLength: 10), [-1, 1, 1, 1, 2, 3, 4])
+        XCTAssertEqual(heap.isEmpty, true)
+    }
+}
 
 class BinaryHeapTests: XCTestCase {
     
@@ -20,4 +80,9 @@ class BinaryHeapTests: XCTestCase {
         super.tearDown()
     }
     
+    func testHeap() {
+        
+        self._testMaxPriorityQueue(BinaryHeap([12, 3]))
+        self._testMinPriorityQueue(BinaryHeap([12, 3], asMaxHeap: false))
+    }
 }

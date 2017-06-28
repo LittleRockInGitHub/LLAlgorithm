@@ -14,6 +14,10 @@ extension XCTestCase {
     func _testStack<Q>(_ stack: Q) where Q : AbstractQueue, Q.Element == Int {
         
         var stack = stack
+        
+        stack.clear()
+        XCTAssertEqual(stack.isEmpty, true)
+        
         XCTAssertEqual(stack.enqueue(1), true)
         
         XCTAssertEqual(stack.isEmpty, false)

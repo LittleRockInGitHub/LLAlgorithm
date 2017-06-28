@@ -12,6 +12,8 @@ public protocol AbstractQueue : IteratorProtocol, Sequence {
     
     var isEmpty: Bool { get }
     
+    mutating func clear()
+    
     @discardableResult
     mutating func enqueue(_ element: Element) -> Bool
     
@@ -24,6 +26,10 @@ public protocol AbstractQueue : IteratorProtocol, Sequence {
 extension AbstractQueue {
     
     public var isEmpty: Bool { return peek() == nil }
+    
+    public mutating func clear() {
+        _ = dequeue(maxLength: Int.max)
+    }
 }
 
 extension AbstractQueue {
@@ -46,12 +52,11 @@ extension AbstractQueue {
         return count
     }
     
-    public mutating func dequeue(_ maxLength: Int) -> [Element] {
+    public mutating func dequeue(maxLength: Int) -> [Element] {
         var reval: [Element] = []
         for _ in 0..<maxLength {
-            if let e = dequeue() {
-                reval.append(e)
-            }
+            guard let e = dequeue() else { break }
+            reval.append(e)
         }
         return reval
     }
