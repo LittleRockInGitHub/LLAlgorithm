@@ -20,7 +20,11 @@ public struct BinaryHeap<E> : PriorityQueue {
         return comparator(lhs, rhs)
     }
     
-    init<S : Sequence>(_ elements: S, isHigherPriorityThan comparator: @escaping (E, E) -> Bool) where S.Element == E {
+    public init(isHigherPriorityThan comparator: @escaping (E, E) -> Bool) {
+        self.init([], isHigherPriorityThan: comparator)
+    }
+    
+    public init<S : Sequence>(_ elements: S, isHigherPriorityThan comparator: @escaping (E, E) -> Bool) where S.Element == E {
         self.elements = Array(elements)
         self.comparator = comparator
         
@@ -103,5 +107,9 @@ extension BinaryHeap where E : Comparable {
         } else {
             self.init(elements, isHigherPriorityThan: <)
         }
+    }
+    
+    public init(asMaxHeap: Bool = true) {
+        self.init([], asMaxHeap: asMaxHeap)
     }
 }

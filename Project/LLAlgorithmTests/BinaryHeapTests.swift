@@ -85,4 +85,20 @@ class BinaryHeapTests: XCTestCase {
         self._testMaxPriorityQueue(BinaryHeap([12, 3]))
         self._testMinPriorityQueue(BinaryHeap([12, 3], asMaxHeap: false))
     }
+    
+    func testTuple() {
+        
+        var heap = BinaryHeap<(Int, String)> { (l, r) -> Bool in
+            return l.1 < r.1
+        }
+        
+        heap.enqueue((0, "A"))
+        XCTAssertEqual(heap.peek()?.1, "A")
+        
+        heap.enqueue((-1, "B"))
+        XCTAssertEqual(heap.dequeue()?.1, "A")
+        
+        heap.enqueue([(2, "A"), (3, "B")])
+        XCTAssertEqual(heap.dequeue(maxLength: 10).map({ $0.1 }), ["A", "B", "B"])
+    }
 }
