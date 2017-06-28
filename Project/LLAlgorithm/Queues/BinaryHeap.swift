@@ -16,7 +16,7 @@ public struct BinaryHeap<E> : PriorityQueue {
     
     private let comparator: (E, E) -> Bool
     
-    public func isHigherriority(_ lhs: E, than rhs: E) -> Bool {
+    public func isHigherPriority(_ lhs: E, than rhs: E) -> Bool {
         return comparator(lhs, rhs)
     }
     
@@ -47,7 +47,7 @@ public struct BinaryHeap<E> : PriorityQueue {
         
         let right = idx * 2 + 2
         
-        if right < elements.count && isHigherriority(elements[right], than: elements[left]) {
+        if right < elements.count && isHigherPriority(elements[right], than: elements[left]) {
             return right
         } else {
             return left
@@ -57,7 +57,7 @@ public struct BinaryHeap<E> : PriorityQueue {
     private mutating func siftDown(_ idx: Int) {
         
         var sifting = idx
-        while let child = higherChild(at: sifting), isHigherriority(elements[child], than: elements[sifting]) {
+        while let child = higherChild(at: sifting), isHigherPriority(elements[child], than: elements[sifting]) {
             elements.swapAt(sifting, child)
             sifting = child
         }
@@ -70,7 +70,7 @@ public struct BinaryHeap<E> : PriorityQueue {
     private mutating func siftUp(_ idx: Int) {
         
         var sifting = idx
-        while let parent = parent(at: sifting), isHigherriority(elements[sifting], than: elements[parent]) {
+        while let parent = parent(at: sifting), isHigherPriority(elements[sifting], than: elements[parent]) {
             elements.swapAt(parent, sifting)
             sifting = parent
         }

@@ -10,6 +10,6 @@ import Foundation
 
 public protocol PriorityQueue : AbstractQueue {
     
-    func isHigherriority(_ lhs: Element, than rhs: Element) -> Bool
+    func isHigherPriority(_ lhs: Element, than rhs: Element) -> Bool
     
 }
