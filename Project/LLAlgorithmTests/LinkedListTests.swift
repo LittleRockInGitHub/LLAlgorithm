@@ -9,6 +9,14 @@
 import XCTest
 import LLAlgorithm
 
+func _randomArray(_ number: Int = 5) -> [Int] {
+    var reval: [Int] = []
+    for _ in 0..<(Int(arc4random()) % number) {
+        reval.append(Int(arc4random()) % 100)
+    }
+    return reval
+}
+
 class LinkedListTests: XCTestCase {
     
     var array: [Int] = []
@@ -100,14 +108,6 @@ class LinkedListTests: XCTestCase {
             let upper = lower + random(array.count - lower)
             
             return lower..<upper
-        }
-        
-        func _randomArray(_ number: Int = 5) -> [Int] {
-            var reval: [Int] = []
-            for _ in 0..<(Int(arc4random()) % number) {
-                reval.append(Int(arc4random()) % 100)
-            }
-            return reval
         }
         
         _test(0..<0, with: [])  // []

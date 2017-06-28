@@ -101,4 +101,22 @@ class BinaryHeapTests: XCTestCase {
         heap.enqueue([(2, "A"), (3, "B")])
         XCTAssertEqual(heap.dequeue(maxLength: 10).map({ $0.1 }), ["A", "B", "B"])
     }
+    
+    
+    func testRandom() {
+        var heap = BinaryHeap<Int>()
+        
+        for _ in 0..<100 {
+            heap.enqueue(_randomArray(10))
+            let reval = heap.dequeue(maxLength: Int(arc4random()) % 10)
+            
+            if !reval.isEmpty {
+                var e = reval.first!
+                for c in reval.dropFirst() {
+                    XCTAssertGreaterThanOrEqual(e, c)
+                    e = c
+                }
+            }
+        }
+    }
 }
