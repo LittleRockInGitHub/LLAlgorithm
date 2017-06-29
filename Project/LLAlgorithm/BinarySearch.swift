@@ -64,7 +64,23 @@ extension RandomAccessCollection where SubSequence : RandomAccessCollection {
         
         switch comparator(mid, element) {
         case .orderedSame:
-            return .found(midIdx)
+            let result = BinarySearching.Result<Index>.found(midIdx)
+            switch equalPosition {
+            case .any:
+                return result
+            case .first:
+                if case let .found(idx) = self[..<midIdx].binarySearch(element, equalPosition: equalPosition, usingComparator: comparator) {
+                    return .found(idx)
+                } else {
+                    return result
+                }
+            case .last:
+                if case let .found(idx) = self[index(after: midIdx)...].binarySearch(element, equalPosition: equalPosition, usingComparator: comparator) {
+                    return .found(idx)
+                } else {
+                    return result
+                }
+            }
         case .orderedAscending:
             return self[index(after: midIdx)...].binarySearch(element, equalPosition: equalPosition, usingComparator: comparator)
         case .orderedDescending:
