@@ -14,9 +14,22 @@ func _testBinarySearching<C : RandomAccessCollection>(in collection: C, with ele
     let result = collection.binarySearch(element, equalPosition: position)
     
     switch result {
-    case .found(let idx):
+    case let .found(idx):
         XCTAssertEqual(collection[idx], element)
-    case .notFound(insertion: let insertion):
+        
+        switch position {
+        case .any:
+            break
+        case .first:
+            if idx > collection.startIndex {
+                XCTAssertLessThan(collection[collection.index(before: idx)], element)
+            }
+        case .last:
+            if collection.index(after: idx) < collection.endIndex {
+                XCTAssertLessThan(element, collection[collection.index(after: idx)])
+            }
+        }
+    case let .notFound(insertion):
         if insertion > collection.startIndex {
             XCTAssertLessThan(collection[collection.index(before: insertion)], element)
         }
@@ -46,7 +59,6 @@ class BinarySearchingTests: XCTestCase {
         
         XCTAssertEqual(result.insertion, 0)
         
-        
         array.append(0)
         result = array.binarySearch(0)  // [0]
         XCTAssertEqual(result.found, 0)
@@ -74,6 +86,16 @@ class BinarySearchingTests: XCTestCase {
         XCTAssertEqual(result.insertion, 9)
     }
     
+    func testRandom() {
+        for _ in 0..<1000 {
+            var array = [Int]()
+            array.append(contentsOf: _randomArray(1000))
+            
+            array.sort()
+            
+            _testBinarySearching(in: array, with: Int(arc4random()) % 110 - 5, position: .random())
+        }
+    }
 }
 
 extension BinarySearching.Result {
@@ -94,5 +116,12 @@ extension BinarySearching.Result {
         default:
             return nil
         }
+    }
+}
+
+extension BinarySearching.EqualPosition {
+    
+    static func random() -> BinarySearching.EqualPosition {
+        return self.init(rawValue: Int(arc4random()) % 3 - 1)!
     }
 }
