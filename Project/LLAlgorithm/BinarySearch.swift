@@ -53,43 +53,44 @@ extension Collection where Element : Comparable {
     }
 }
 
-extension RandomAccessCollection where SubSequence : RandomAccessCollection {
+extension RandomAccessCollection {
     
     public func binarySearch(_ element: Element, equalPosition: BinarySearching.EqualPosition = .any, usingComparator comparator: Comparator<Element>) -> BinarySearching.Result<Index> {
         
-        guard !isEmpty else { return .notFound(insertion: startIndex) }
+        var range = startIndex..<endIndex
         
-        let midIdx = index(startIndex, offsetBy: count / 2)
-        let mid = self[midIdx]
+        var found: Index?
         
-        switch comparator(mid, element) {
-        case .orderedSame:
-            let result = BinarySearching.Result<Index>.found(midIdx)
-            switch equalPosition {
-            case .any:
-                return result
-            case .first:
-                if case let .found(idx) = self[..<midIdx].binarySearch(element, equalPosition: equalPosition, usingComparator: comparator) {
-                    return .found(idx)
-                } else {
-                    return result
+        searching: while !range.isEmpty {
+            let mid = index(range.lowerBound, offsetBy: self.distance(from: range.lowerBound, to: range.upperBound) / 2)
+            
+            switch comparator(self[mid], element) {
+            case .orderedSame:
+                found = mid
+                switch equalPosition {
+                case .any:
+                    break searching
+                case .first:
+                    range = range.lowerBound..<mid
+                case .last:
+                    range = index(after: mid)..<range.upperBound
                 }
-            case .last:
-                if case let .found(idx) = self[index(after: midIdx)...].binarySearch(element, equalPosition: equalPosition, usingComparator: comparator) {
-                    return .found(idx)
-                } else {
-                    return result
-                }
+            case .orderedAscending:
+                range = index(after: mid)..<range.upperBound
+            case .orderedDescending:
+                range = range.lowerBound..<mid
             }
-        case .orderedAscending:
-            return self[index(after: midIdx)...].binarySearch(element, equalPosition: equalPosition, usingComparator: comparator)
-        case .orderedDescending:
-            return self[..<midIdx].binarySearch(element, equalPosition: equalPosition, usingComparator: comparator)
+        }
+        
+        if let found = found {
+            return .found(found)
+        } else {
+            return .notFound(insertion: range.lowerBound)
         }
     }
 }
 
-extension RandomAccessCollection where Element : Comparable, SubSequence : RandomAccessCollection {
+extension RandomAccessCollection where Element : Comparable {
     
     public func binarySearch(_ element: Element, equalPosition: BinarySearching.EqualPosition = .any) -> BinarySearching.Result<Index> {
         
