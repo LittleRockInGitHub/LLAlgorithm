@@ -22,12 +22,17 @@ public struct BinarySearching {
     }
 }
 
-public typealias Comparator<E> = (E, E) -> ComparisonResult
+public typealias ElementComparator<E> = (E, E) -> ComparisonResult
+
+public func reversed<E>(_ comparator: @escaping ElementComparator<E>) -> ElementComparator<E> {
+    return { comparator($1, $0) }
+}
 
 extension Comparable {
     
-    public static var comparator: Comparator<Self> {
-        return { (lhs: Self, rhs: Self) -> ComparisonResult in
+    public static func comparator(ascending: Bool = true) -> ElementComparator<Self> {
+        
+        let forAscending = { (lhs: Self, rhs: Self) -> ComparisonResult in
             if lhs < rhs {
                 return .orderedAscending
             } else if lhs > rhs {
@@ -36,26 +41,35 @@ extension Comparable {
                 return .orderedSame
             }
         }
+        
+        return ascending ? forAscending : reversed(forAscending)
     }
 }
 
 extension Collection {
     
-    public func isSorted(usingComparator: Comparator<Element>) -> Bool {
-        return false
+    public func isSorted(usingComparator comparator: ElementComparator<Element>) -> Bool {
+        guard !isEmpty else { return true }
+        
+        var element = first!
+        for e in dropFirst() {
+            guard comparator(element, e) != .orderedDescending else { return false }
+            element = e
+        }
+        return true
     }
 }
 
 extension Collection where Element : Comparable {
     
-    public func isSorted() -> Bool {
-        return isSorted(usingComparator: Element.comparator)
+    public func isSorted(ascending: Bool = true) -> Bool {
+        return self.isSorted(usingComparator: Element.comparator(ascending: ascending))
     }
 }
 
 extension RandomAccessCollection {
     
-    public func binarySearch(_ element: Element, equalPosition: BinarySearching.EqualPosition = .any, usingComparator comparator: Comparator<Element>) -> BinarySearching.Result<Index> {
+    public func binarySearch(_ element: Element, equalPosition: BinarySearching.EqualPosition = .any, usingComparator comparator: ElementComparator<Element>) -> BinarySearching.Result<Index> {
         
         var range = startIndex..<endIndex
         
@@ -92,9 +106,9 @@ extension RandomAccessCollection {
 
 extension RandomAccessCollection where Element : Comparable {
     
-    public func binarySearch(_ element: Element, equalPosition: BinarySearching.EqualPosition = .any) -> BinarySearching.Result<Index> {
+    public func binarySearch(_ element: Element, equalPosition: BinarySearching.EqualPosition = .any, ascending: Bool = true) -> BinarySearching.Result<Index> {
         
-        return binarySearch(element, equalPosition: equalPosition, usingComparator: Element.comparator)
+        return binarySearch(element, equalPosition: equalPosition, usingComparator: Element.comparator(ascending: ascending))
     }
 }
 

@@ -96,6 +96,47 @@ class BinarySearchingTests: XCTestCase {
             _testBinarySearching(in: array, with: Int(arc4random()) % 110 - 5, position: .random())
         }
     }
+    
+    func testSorted() {
+        
+        var array = [1, 2, 3, 3, 4, 5]
+        XCTAssertEqual(array.isSorted(), true)
+        XCTAssertEqual(array.isSorted(ascending: false), false)
+        
+        array = [5, 4, 4, 2, 1]
+        XCTAssertEqual(array.isSorted(), false)
+        XCTAssertEqual(array.isSorted(ascending: false), true)
+        
+        array = []
+        XCTAssertEqual(array.isSorted(), true)
+        XCTAssertEqual(array.isSorted(ascending: false), true)
+        
+        array = [1]
+        XCTAssertEqual(array.isSorted(), true)
+        XCTAssertEqual(array.isSorted(ascending: false), true)
+        
+        array = [1, 2, 1, 3, 2]
+        XCTAssertEqual(array.isSorted(), false)
+        XCTAssertEqual(array.isSorted(ascending: false), false)
+        
+        var tupleArray: [(Int, String)] = [(0, "A"), (1, "B"), (0, "B")]
+        let comparator: ElementComparator<(Int, String)> = { (l: (Int, String), r: (Int, String)) -> ComparisonResult in
+            if l.1 < r.1 {
+                return .orderedAscending
+            } else if l.1 > r.1 {
+                return .orderedDescending
+            } else {
+                return .orderedSame
+            }
+        }
+        
+        XCTAssertEqual(tupleArray.isSorted(usingComparator: comparator), true)
+        XCTAssertEqual(tupleArray.isSorted(usingComparator: reversed(comparator)), false)
+        
+        tupleArray = [(0, "C"), (1, "B"), (0, "A")]
+        XCTAssertEqual(tupleArray.isSorted(usingComparator: comparator), false)
+        XCTAssertEqual(tupleArray.isSorted(usingComparator: reversed(comparator)), true)
+    }
 }
 
 extension BinarySearching.Result {
