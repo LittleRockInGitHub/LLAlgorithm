@@ -9,9 +9,9 @@
 import XCTest
 import LLAlgorithm
 
-func _testBinarySearching<C : RandomAccessCollection>(in collection: C, with element: Int, position: BinarySearching.EqualPosition) where C.SubSequence : RandomAccessCollection, C.Element == Int {
+func _testBinarySearching<C : RandomAccessCollection>(in collection: C, with element: Int, position: BinarySearching.EqualPosition, ascending: Bool = true) where C.SubSequence : RandomAccessCollection, C.Element == Int {
     
-    let result = collection.binarySearch(element, equalPosition: position)
+    let result = collection.binarySearch(element, equalPosition: position, ascending: ascending)
     
     switch result {
     case let .found(idx):
@@ -22,19 +22,36 @@ func _testBinarySearching<C : RandomAccessCollection>(in collection: C, with ele
             break
         case .first:
             if idx > collection.startIndex {
-                XCTAssertLessThan(collection[collection.index(before: idx)], element)
+                if ascending {
+                    XCTAssertLessThan(collection[collection.index(before: idx)], element)
+                } else {
+                    XCTAssertGreaterThan(collection[collection.index(before: idx)], element)
+                }
+                
             }
         case .last:
             if collection.index(after: idx) < collection.endIndex {
-                XCTAssertLessThan(element, collection[collection.index(after: idx)])
+                if ascending {
+                    XCTAssertLessThan(element, collection[collection.index(after: idx)])
+                } else {
+                    XCTAssertGreaterThan(element, collection[collection.index(after: idx)])
+                }
             }
         }
     case let .notFound(insertion):
         if insertion > collection.startIndex {
-            XCTAssertLessThan(collection[collection.index(before: insertion)], element)
+            if ascending {
+                XCTAssertLessThan(collection[collection.index(before: insertion)], element)
+            } else {
+                XCTAssertGreaterThan(collection[collection.index(before: insertion)], element)
+            }
         }
         if insertion < collection.endIndex {
-            XCTAssertLessThan(element, collection[insertion])
+            if ascending {
+                XCTAssertLessThan(element, collection[insertion])
+            } else {
+                XCTAssertGreaterThan(element, collection[insertion])
+            }
         }
     }
 }
@@ -94,6 +111,15 @@ class BinarySearchingTests: XCTestCase {
             array.sort()
             
             _testBinarySearching(in: array, with: Int(arc4random()) % 110 - 5, position: .random())
+        }
+        
+        for _ in 0..<1000 {
+            var array = [Int]()
+            array.append(contentsOf: _randomArray(1000))
+            
+            let r = array.sorted().reversed()
+            
+            _testBinarySearching(in: r, with: Int(arc4random()) % 110 - 5, position: .random(), ascending: false)
         }
     }
     
