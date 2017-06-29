@@ -11,10 +11,12 @@
 		9D04C4D01F00F47E00D46EEA /* LLAlgorithmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D04C4CF1F00F47E00D46EEA /* LLAlgorithmTests.swift */; };
 		9D04C4D21F00F47E00D46EEA /* LLAlgorithm.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D04C4C41F00F47E00D46EEA /* LLAlgorithm.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9D0905531F025E8400F89E68 /* LinkedListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0905521F025E8400F89E68 /* LinkedListTests.swift */; };
+		9D41DB4A1F042C6B007D1DA7 /* BinarySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D41DB491F042C6B007D1DA7 /* BinarySearch.swift */; };
 		9D4D4A8A1F0132730093E8FB /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4D4A891F0132730093E8FB /* LinkedList.swift */; };
 		9DAFAE9B1F01102300F833BE /* BinaryHeap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAFAE9A1F01102300F833BE /* BinaryHeap.swift */; };
 		9DCF9CF21F00F4FD00FF0E97 /* AbstractQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCF9CF11F00F4FD00FF0E97 /* AbstractQueue.swift */; };
 		9DCF9CF41F00F65700FF0E97 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCF9CF31F00F65700FF0E97 /* Queue.swift */; };
+		9DD66FA41F04EADE00ABF99B /* BinarySearchingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD66FA31F04EADE00ABF99B /* BinarySearchingTests.swift */; };
 		9DEA26FE1F00F78E0022E36E /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEA26FD1F00F78E0022E36E /* Stack.swift */; };
 		9DEA27001F00FE500022E36E /* Deque.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEA26FF1F00FE500022E36E /* Deque.swift */; };
 		9DF5E54C1F02B20D00014281 /* DequeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF5E54B1F02B20D00014281 /* DequeTest.swift */; };
@@ -42,10 +44,12 @@
 		9D04C4CF1F00F47E00D46EEA /* LLAlgorithmTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLAlgorithmTests.swift; sourceTree = "<group>"; };
 		9D04C4D11F00F47E00D46EEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9D0905521F025E8400F89E68 /* LinkedListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedListTests.swift; sourceTree = "<group>"; };
+		9D41DB491F042C6B007D1DA7 /* BinarySearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinarySearch.swift; sourceTree = "<group>"; };
 		9D4D4A891F0132730093E8FB /* LinkedList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedList.swift; sourceTree = "<group>"; };
 		9DAFAE9A1F01102300F833BE /* BinaryHeap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinaryHeap.swift; sourceTree = "<group>"; };
 		9DCF9CF11F00F4FD00FF0E97 /* AbstractQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractQueue.swift; sourceTree = "<group>"; };
 		9DCF9CF31F00F65700FF0E97 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
+		9DD66FA31F04EADE00ABF99B /* BinarySearchingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinarySearchingTests.swift; sourceTree = "<group>"; };
 		9DEA26FD1F00F78E0022E36E /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		9DEA26FF1F00FE500022E36E /* Deque.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deque.swift; sourceTree = "<group>"; };
 		9DF5E54B1F02B20D00014281 /* DequeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DequeTest.swift; sourceTree = "<group>"; };
@@ -97,6 +101,7 @@
 			children = (
 				9D04C4C41F00F47E00D46EEA /* LLAlgorithm.h */,
 				9DCF9CF01F00F4D200FF0E97 /* Queues */,
+				9D41DB481F042C4B007D1DA7 /* Sorting */,
 				9D04C4C51F00F47E00D46EEA /* Info.plist */,
 			);
 			path = LLAlgorithm;
@@ -112,8 +117,17 @@
 				9DF5E5531F02BA0F00014281 /* QueueTests.swift */,
 				9DF5E5591F02BF0400014281 /* StackTests.swift */,
 				9DF5E5571F02BD8400014281 /* BinaryHeapTests.swift */,
+				9DD66FA31F04EADE00ABF99B /* BinarySearchingTests.swift */,
 			);
 			path = LLAlgorithmTests;
+			sourceTree = "<group>";
+		};
+		9D41DB481F042C4B007D1DA7 /* Sorting */ = {
+			isa = PBXGroup;
+			children = (
+				9D41DB491F042C6B007D1DA7 /* BinarySearch.swift */,
+			);
+			name = Sorting;
 			sourceTree = "<group>";
 		};
 		9DCF9CF01F00F4D200FF0E97 /* Queues */ = {
@@ -242,6 +256,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D41DB4A1F042C6B007D1DA7 /* BinarySearch.swift in Sources */,
 				9DAFAE9B1F01102300F833BE /* BinaryHeap.swift in Sources */,
 				9DCF9CF21F00F4FD00FF0E97 /* AbstractQueue.swift in Sources */,
 				9DEA26FE1F00F78E0022E36E /* Stack.swift in Sources */,
@@ -257,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9DF5E55A1F02BF0400014281 /* StackTests.swift in Sources */,
+				9DD66FA41F04EADE00ABF99B /* BinarySearchingTests.swift in Sources */,
 				9D0905531F025E8400F89E68 /* LinkedListTests.swift in Sources */,
 				9D04C4D01F00F47E00D46EEA /* LLAlgorithmTests.swift in Sources */,
 				9DF5E5541F02BA0F00014281 /* QueueTests.swift in Sources */,
