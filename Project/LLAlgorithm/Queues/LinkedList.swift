@@ -8,14 +8,15 @@
 
 import Foundation
 
-public final class LinkedList<E>: BidirectionalCollection, RangeReplaceableCollection, MutableCollection, CustomStringConvertible, NSCopying {
+public final class LinkedList<Element>: BidirectionalCollection, RangeReplaceableCollection, MutableCollection, CustomStringConvertible, NSCopying {
     
-    public typealias Index = Int
+    public typealias Index = Node
     
-    class Node {
-        var element: E!
+    public class Node : Comparable {
         
-        var previous: Node! {
+        var element: Element!
+        
+        weak var previous: Node! {
             didSet {
                 if previous.next !== self {
                     previous.next = self
@@ -23,7 +24,20 @@ public final class LinkedList<E>: BidirectionalCollection, RangeReplaceableColle
             }
         }
         
-        weak var next: Node! {
+        public static func <(lhs: Node, rhs: Node) -> Bool {
+            var lhs = lhs
+            while let n = lhs.next, n != rhs {
+                lhs = n
+            }
+            
+            return lhs.next != nil
+        }
+        
+        public static func ==(lhs: Node, rhs: Node) -> Bool {
+            return lhs === rhs
+        }
+        
+        var next: Node! {
             didSet {
                 if next.previous !== self {
                     next.previous = self
@@ -31,7 +45,7 @@ public final class LinkedList<E>: BidirectionalCollection, RangeReplaceableColle
             }
         }
         
-        init(_ element: E) {
+        init(_ element: Element) {
             self.element = element
         }
         
@@ -39,54 +53,38 @@ public final class LinkedList<E>: BidirectionalCollection, RangeReplaceableColle
             self.element = nil
         }
         
-        func node(offset: Int) -> Node {
-            if offset > 0 {
-                var node = self
-                for _ in 0..<offset {
-                    node = node.next
-                }
-                return node
-            } else if offset < 0 {
-                var node = self
-                for _ in 0..<(-offset) {
-                    node = node.previous
-                }
-                return node
+        static func makeNodes<S: Sequence>(_ seq: S) -> (Node, Node)? where S.Element == Element {
+            var itr = seq.makeIterator()
+            
+            let start = Node()
+            var end = start
+            while let next = itr.next() {
+                end.next = Node(next)
+                end = end.next
+            }
+            
+            if start === end {
+                return nil
             } else {
-                return self
+                return (start.next, end)
             }
         }
         
-        static func nodes<C: Collection>(_ c: C) -> (Node, Node, Int) where C.Element == E {
+        static func nodes<C: Collection>(_ c: C) -> (Node, Node) where C.Element == Element {
             
             precondition(!c.isEmpty)
             
-            if let list = c as? LinkedList<E>  {
-                return (list.head.next, list.tail.previous, list.count)
+            if let list = c as? LinkedList<Element>  {
+                return (list.head.next, list.tail.previous)
             } else {
-            
-                var count = 1
-                let start = Node()
-                start.element = c.first!
-                
-                var end = start
-                for e in c.dropFirst() {
-                    let node = Node(e)
-                    end.next = node
-                    end = end.next
-                    count += 1
-                }
-                
-                return (start, end, count)
+                return makeNodes(c)!
             }
         }
     }
     
-    var head: Node
+    private var head: Node
     
-    var tail: Node
-    
-    private(set) public var count: Int = 0
+    private var tail: Node
     
     public required init() {
         let head = Node()
@@ -98,84 +96,59 @@ public final class LinkedList<E>: BidirectionalCollection, RangeReplaceableColle
         self.tail = tail
     }
     
-    public convenience init<C : Collection>(_ elements: C) where C.Element == E {
+    public convenience init<S: Sequence>(_ seq: S) where S.Element == Element {
         self.init()
         
-        self.replaceSubrange(0..<0, with: elements)
+        if let (start, end) = Node.makeNodes(seq) {
+            head.next = start
+            tail.previous = end
+        }
     }
     
-    public var startIndex: Int { return 0 }
+    public var startIndex: Node { return head.next }
     
-    public var endIndex: Int { return count }
+    public var endIndex: Node { return tail }
     
-    public func index(after i: Int) -> Int {
-        return i + 1
-    }
-    
-    public subscript(index: Int) -> E {
+    public subscript(index: Node) -> Element {
         get {
-            precondition((startIndex..<endIndex).contains(index))
-            return node(at: index).element
+            return index.element
         }
         set {
-            precondition((startIndex..<endIndex).contains(index))
-            node(at: index).element = newValue
+            index.element = newValue
         }
     }
     
-    private func node(at index: Int) -> Node {
-        
-        if index < count / 2 {
-            return head.node(offset: index + 1)
-        } else {
-            return tail.node(offset: index - count)
-        }
+    public func index(before node: Node) -> Node {
+        return node.previous
     }
     
-    private func nodes(at range: Range<Int>) -> (head: Node, tail: Node) {
-        
-        return (head: node(at: range.lowerBound), tail: node(at: range.upperBound))
+    public func index(after node: Node) -> Node {
+        return node.next
     }
     
-    public func index(before i: Int) -> Int {
-        return i - 1
-    }
-    
-    public func replaceSubrange<C, R>(_ subrange: R, with newElements: C) where C : Collection, R : RangeExpression, E == C.Element, LinkedList.Index == R.Bound {
+    public func replaceSubrange<C, R>(_ subrange: R, with newElements: C) where C : Collection, R : RangeExpression, C.Element == Element, LinkedList.Index == R.Bound {
         
-        let range = subrange.relative(to: self)
-        
-        let gap = nodes(at: range)
-        
-        count -= range.count
+        let indexRange = subrange.relative(to: self)
         
         if newElements.isEmpty {
-            gap.head.previous.next = gap.tail
+            indexRange.lowerBound.previous.next = indexRange.upperBound
         } else {
-            let (head, tail, added) = Node.nodes(newElements)
-            gap.head.previous.next = head
-            gap.tail.previous = tail
-            
-            count += added
+            let (first, last) = Node.nodes(newElements)
+            indexRange.lowerBound.previous.next = first
+            indexRange.upperBound.previous = last
         }
     }
     
     public var description: String {
         
-        if E.self is CustomStringConvertible.Type {
+        if Element.self is CustomStringConvertible.Type {
             return "[" + self.map({ ($0 as! CustomStringConvertible).description }).joined(separator: " -> ") + "]"
         } else {
-            return "[count: \(count)]"
+            return "[\(Element.self) count: \(count)]"
         }
     }
     
     public func copy(with zone: NSZone? = nil) -> Any {
-        var reval = LinkedList<E>()
-        
-        for v in self {
-            reval.append(v)
-        }
-        
-        return reval
+        return LinkedList(self)
     }
 }

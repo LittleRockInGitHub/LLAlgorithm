@@ -91,7 +91,7 @@ class LinkedListTests: XCTestCase {
         func _test<R, C>(_ subrange: R, with newElements: C) where R : RangeExpression, R.Bound == Int, C : Collection, C.Element == Int {
             
             array.replaceSubrange(subrange, with: newElements)
-            list.replaceSubrange(subrange, with: newElements)
+            list.replaceSubrange(list.range(fromOffsetRange: subrange), with: newElements)
             
             print(list)
             
@@ -116,9 +116,15 @@ class LinkedListTests: XCTestCase {
         
         _test(0..<1, with: [2]) // [2]
             
-        _test(1..<1, with: [2, 3, 4]) // [2, 3, 4]
+        _test(1..<1, with: [2, 3, 4]) // [2, 2, 3, 4]
         
-        _test(0..<3, with: [])  // []
+        _test(3..<3, with: [5]) // [2, 2, 3, 5, 4]
+        
+        _test(4..<4, with: [])  // [2, 3, 3, 5, 4]
+        
+        _test(1..<3, with: [6])  // [2, 6, 5, 4]
+        
+        _test(0..., with: []) // []
         
         for _ in 0..<100 {
             _test(_randomRange(in: array), with: _randomArray())
@@ -133,7 +139,15 @@ class LinkedListTests: XCTestCase {
         
         list.append(1)
         
-        XCTAssertEqual(list[0], 1)
+        XCTAssertEqual(list[offset: 0], 1)
+        XCTAssertEqual(list[list.startIndex], 1)
+        
+        list.insert(0, at: list.startIndex)
+        XCTAssertEqual(list[list.startIndex], 0)
+        
+        list[offset: 1] = 2
+        XCTAssertEqual(list[list.startIndex], 0)
+        XCTAssertEqual(list[list.index(after: list.startIndex)], 2)
     }
     
     func testCopy() {
@@ -152,10 +166,43 @@ class LinkedListTests: XCTestCase {
     }
 }
 
-//extension LinkedList where Element : Equatable  {
-//
-//    func _test(equalsTo array: Array<Element>) {
-//        XCTAssertEqual(Array(self), array)
-//    }
-//}
+extension Collection {
+    
+    subscript(offset offset: IndexDistance) -> Element {
+        return self[offset: offset, from: self.startIndex]
+    }
+    
+    subscript(offset offset: IndexDistance, from start: Index) -> Element {
+        return self[index(start, offsetBy: offset)]
+    }
+    
+    func range<R: RangeExpression>(fromOffsetRange r: R) -> Range<Index> where R.Bound == IndexDistance, IndexDistance.Stride : SignedInteger {
+        let whole: CountableRange<IndexDistance> = 0..<count
+        let offsetRange = r.relative(to: whole)
+        
+        return index(startIndex, offsetBy: offsetRange.lowerBound)..<index(startIndex, offsetBy: offsetRange.upperBound)
+    }
+    
+}
+
+extension MutableCollection {
+    
+    subscript(offset offset: IndexDistance) -> Element {
+        get {
+            return self[offset: offset, from: startIndex]
+        }
+        set {
+            self[offset: offset, from: startIndex] = newValue
+        }
+    }
+    
+    subscript(offset offset: IndexDistance, from start: Index) -> Element {
+        get {
+            return self[index(start, offsetBy: offset)]
+        }
+        set {
+            self[index(start, offsetBy: offset)] = newValue
+        }
+    }
+}
 
