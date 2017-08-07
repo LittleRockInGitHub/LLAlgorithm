@@ -86,6 +86,25 @@ class LinkedListTests: XCTestCase {
 //        list._test(equalsTo: [2, 3])
 //    }
     
+    func testCount() {
+        
+        XCTAssertTrue(list.isEmpty)
+        XCTAssertEqual(list.count, 0)
+        
+        list.append(contentsOf: [1, 0])
+        XCTAssertFalse(list.isEmpty)
+        XCTAssertEqual(list.count, 2)
+        
+        list.removeLast()
+        XCTAssertFalse(list.isEmpty)
+        XCTAssertEqual(list.count, 1)
+        
+        list.removeAll()
+        XCTAssertTrue(list.isEmpty)
+        XCTAssertEqual(list.count, 0)
+
+    }
+    
     func testReplace() {
         
         func _test<R, C>(_ subrange: R, with newElements: C) where R : RangeExpression, R.Bound == Int, C : Collection, C.Element == Int {

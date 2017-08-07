@@ -45,6 +45,10 @@ public struct DequeWrapper<C : BidirectionalCollection & RangeReplaceableCollect
         public func peek() -> Element? {
             return elements.first
         }
+        
+        public mutating func clear() {
+            elements.removeAll()
+        }
     }
     
     public struct Tail: AbstractQueue {
@@ -69,6 +73,10 @@ public struct DequeWrapper<C : BidirectionalCollection & RangeReplaceableCollect
         
         public func peek() -> Element? {
             return elements.last
+        }
+        
+        public mutating func clear() {
+            elements.removeAll()
         }
     }
     

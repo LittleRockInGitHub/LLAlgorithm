@@ -14,16 +14,6 @@ public final class LinkedList<Element>: BidirectionalCollection, RangeReplaceabl
     
     public class Node : Comparable {
         
-        var element: Element!
-        
-        weak var previous: Node! {
-            didSet {
-                if previous.next !== self {
-                    previous.next = self
-                }
-            }
-        }
-        
         public static func <(lhs: Node, rhs: Node) -> Bool {
             var lhs = lhs
             while let n = lhs.next, n != rhs {
@@ -35,6 +25,16 @@ public final class LinkedList<Element>: BidirectionalCollection, RangeReplaceabl
         
         public static func ==(lhs: Node, rhs: Node) -> Bool {
             return lhs === rhs
+        }
+        
+        var element: Element!
+        
+        weak var previous: Node! {
+            didSet {
+                if previous.next !== self {
+                    previous.next = self
+                }
+            }
         }
         
         var next: Node! {
@@ -82,9 +82,11 @@ public final class LinkedList<Element>: BidirectionalCollection, RangeReplaceabl
         }
     }
     
-    private var head: Node
     
-    private var tail: Node
+    
+    private let head: Node
+    
+    private let tail: Node
     
     public required init() {
         let head = Node()
@@ -105,6 +107,13 @@ public final class LinkedList<Element>: BidirectionalCollection, RangeReplaceabl
         }
     }
     
+    private init(range: Range<Node>) {
+        let head = Node()
+        head.next = range.lowerBound
+        self.head = head
+        self.tail = range.upperBound
+    }
+    
     public var startIndex: Node { return head.next }
     
     public var endIndex: Node { return tail }
@@ -116,6 +125,10 @@ public final class LinkedList<Element>: BidirectionalCollection, RangeReplaceabl
         set {
             index.element = newValue
         }
+    }
+    
+    public subscript(range: Range<Node>) -> LinkedList<Element> {
+        return LinkedList(range: range)
     }
     
     public func index(before node: Node) -> Node {
