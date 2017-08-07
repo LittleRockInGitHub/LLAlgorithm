@@ -39,10 +39,10 @@ extension XCTestCase {
 class QueueTests: XCTestCase {
     
     func testArrayQueue() {
-        self._testQueue(Queue<Int>())
+        self._testQueue(QueueWrapper<Array<Int>>())
     }
     
     func testListQueue() {
-        self._testQueue(ListQueue<Int>())
+        self._testQueue(Queue<Int>())
     }
 }

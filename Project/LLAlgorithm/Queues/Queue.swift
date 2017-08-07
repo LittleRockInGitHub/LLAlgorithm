@@ -8,8 +8,7 @@
 
 import Foundation
 
-public typealias Queue<E> = QueueWrapper<Array<E>>
-public typealias ListQueue<E> = QueueWrapper<LinkedList<E>>
+public typealias Queue<E> = QueueWrapper<LinkedList<E>>
 
 public struct QueueWrapper<C : BidirectionalCollection & RangeReplaceableCollection> : AbstractQueue {
     

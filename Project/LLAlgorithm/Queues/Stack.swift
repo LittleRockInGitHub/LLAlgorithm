@@ -8,8 +8,7 @@
 
 import Foundation
 
-public typealias Stack<E> = StackWrapper<Array<E>>
-public typealias ListStack<E> = StackWrapper<LinkedList<E>>
+public typealias Stack<E> = StackWrapper<LinkedList<E>>
 
 public struct StackWrapper<C : BidirectionalCollection & RangeReplaceableCollection> : AbstractQueue {
     

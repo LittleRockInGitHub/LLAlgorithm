@@ -8,8 +8,7 @@
 
 import Foundation
 
-public typealias Deque<E> = DequeWrapper<Array<E>>
-public typealias ListDeque<E> = DequeWrapper<LinkedList<E>>
+public typealias Deque<E> = DequeWrapper<LinkedList<E>>
 
 public struct DequeWrapper<C : BidirectionalCollection & RangeReplaceableCollection> {
     

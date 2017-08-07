@@ -50,16 +50,16 @@ class DequeTest: XCTestCase {
     
     func testHead() {
         self._testStack(Deque<Int>().head)
-        self._testStack(ListDeque<Int>().head)
+        self._testStack(DequeWrapper<Array<Int>>().head)
     }
     
     func testTail() {
         self._testStack(Deque<Int>().tail)
-        self._testStack(ListDeque<Int>().tail)
+        self._testStack(DequeWrapper<Array<Int>>().tail)
     }
     
     func testDeque() {
         self._testDeque(Deque<Int>())
-        self._testDeque(ListDeque<Int>())
+        self._testDeque(DequeWrapper<Array<Int>>())
     }
 }

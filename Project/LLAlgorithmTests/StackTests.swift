@@ -40,11 +40,11 @@ class StackTests: XCTestCase {
     
     func testArrayStack() {
         
-        self._testStack(Stack<Int>())
+        self._testStack(StackWrapper<Array<Int>>())
     }
     
     func testListStack() {
         
-        self._testStack(ListStack<Int>())
+        self._testStack(Stack<Int>())
     }
 }
