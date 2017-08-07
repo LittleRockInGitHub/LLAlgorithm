@@ -79,19 +79,24 @@ class BinarySearchingTests: XCTestCase {
         array.append(0)
         result = array.binarySearch(0)  // [0]
         XCTAssertEqual(result.found, 0)
+        XCTAssertEqual(result.insertion, 0)
         
         array.append(contentsOf: [1, 1, 1, 1, 1, 3, 4, 5])
         result = array.binarySearch(5)  // [0, 1, 1, 1, 1, 1, 3, 4, 5]
         XCTAssertEqual(result.found, 8)
+        XCTAssertEqual(result.insertion, 8)
         
         result = array.binarySearch(1)  // [0, 1, 1, 1, 1, 1, 3, 4, 5]
         XCTAssertEqual(result.found, 4)
+        XCTAssertEqual(result.insertion, 4)
         
         result = array.binarySearch(1, equalPosition: .first)  // [0, 1, 1, 1, 1, 1, 3, 4, 5]
         XCTAssertEqual(result.found, 1)
+        XCTAssertEqual(result.insertion, 1)
         
         result = array.binarySearch(1, equalPosition: .last)  // [0, 1, 1, 1, 1, 1, 3, 4, 5]
         XCTAssertEqual(result.found, 5)
+        XCTAssertEqual(result.insertion, 5)
         
         result = array.binarySearch(-1)  // [0, 1, 1, 1, 1, 1, 3, 4, 5]
         XCTAssertEqual(result.insertion, 0)
@@ -125,26 +130,6 @@ class BinarySearchingTests: XCTestCase {
     
 }
 
-extension BinarySearching.Result {
-    
-    var found: Index? {
-        switch self {
-        case .found(let idx):
-            return idx
-        default:
-            return nil
-        }
-    }
-    
-    var insertion: Index? {
-        switch self {
-        case .notFound(insertion: let idx):
-            return idx
-        default:
-            return nil
-        }
-    }
-}
 
 extension BinarySearching.EqualPosition {
     

@@ -18,7 +18,7 @@ public struct BinarySearching {
     
     public enum Result<Index> {
         case found(Index)
-        case notFound(insertion: Index)
+        case notFound(expected: Index)
     }
 }
 
@@ -89,7 +89,7 @@ extension RandomAccessCollection {
         if let found = found {
             return .found(found)
         } else {
-            return .notFound(insertion: range.lowerBound)
+            return .notFound(expected: range.lowerBound)
         }
     }
 }
@@ -101,4 +101,26 @@ extension RandomAccessCollection where Element : Comparable {
         return try! binarySearch(element, equalPosition: equalPosition, usingComparator: Element.comparator(ascending: ascending))
     }
 }
+
+extension BinarySearching.Result {
+    
+    public var found: Index? {
+        switch self {
+        case .found(let idx):
+            return idx
+        default:
+            return nil
+        }
+    }
+    
+    public var insertion: Index {
+        switch self {
+        case .found(let idx):
+            return idx
+        case .notFound(let expected):
+            return expected
+        }
+    }
+}
+
 
