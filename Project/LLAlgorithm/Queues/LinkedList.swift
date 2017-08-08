@@ -128,7 +128,12 @@ public final class LinkedList<Element>: BidirectionalCollection, RangeReplaceabl
     }
     
     public subscript(range: Range<Node>) -> LinkedList<Element> {
-        return LinkedList(range: range)
+        get {
+            return LinkedList(range: range)
+        }
+        set {
+            self.replaceSubrange(range, with: newValue)
+        }
     }
     
     public func index(before node: Node) -> Node {

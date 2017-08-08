@@ -183,6 +183,39 @@ class LinkedListTests: XCTestCase {
         
         XCTAssertEqual(copiedList.count, 1)
     }
+    
+    func testReference() {
+        
+        let list1 = LinkedList([1, 2, 3])
+        var list2 = LinkedList([4, 5])
+        
+        list1.replaceSubrange(list1.endIndex..<list1.endIndex, with: list2)
+        
+        XCTAssertTrue(list1.elementsEqual([1, 2, 3, 4, 5]))
+        
+        list2.insert(3, at: list2.index(after: list2.startIndex))
+        XCTAssertTrue(list1.elementsEqual([1, 2, 3, 4, 3, 5]))
+        
+    }
+    
+    func testMutating() {
+        
+        list.append(contentsOf: [1, 2, 3])
+        
+        XCTAssertTrue(list.elementsEqual([1, 2, 3]))
+        
+        list[list.startIndex] = 0
+        
+        XCTAssertTrue(list.elementsEqual([0, 2, 3]))
+        
+        list[list.startIndex ..< list.index(after: list.startIndex)] = LinkedList([-1, 1])
+        
+        XCTAssertTrue(list.elementsEqual([-1, 1, 2, 3]))
+        
+        list[list.index(after: list.startIndex) ..< list.index(list.startIndex, offsetBy: 3)] = LinkedList<Int>()
+        
+        XCTAssertTrue(list.elementsEqual([-1, 3]))
+    }
 }
 
 extension Collection {
