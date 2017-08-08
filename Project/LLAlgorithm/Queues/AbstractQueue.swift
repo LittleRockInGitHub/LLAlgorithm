@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol AbstractQueue : IteratorProtocol, Sequence {
+public protocol AbstractQueue : Sequence {
     
     var isEmpty: Bool { get }
     
@@ -21,6 +21,11 @@ public protocol AbstractQueue : IteratorProtocol, Sequence {
     
     func peek() -> Element?
     
+    @discardableResult
+    mutating func enqueue<C : Collection>(_ newElements: C) -> Int where C.Element == Element
+    
+    mutating func dequeue(maxLength: Int) -> [Element]
+    
 }
 
 extension AbstractQueue {
@@ -32,10 +37,23 @@ extension AbstractQueue {
     }
 }
 
+public struct AbstractQueueIterator<Queue: AbstractQueue> : IteratorProtocol {
+    
+    private var queue: Queue
+    
+    init(_ queue: Queue) {
+        self.queue = queue
+    }
+    
+    public mutating func next() -> Queue.Element? {
+        return queue.dequeue()
+    }
+}
+
 extension AbstractQueue {
     
-    public mutating func next() -> Element? {
-        return dequeue()
+    public func makeIterator() -> AbstractQueueIterator<Self> {
+        return AbstractQueueIterator(self)
     }
 }
 
@@ -47,6 +65,8 @@ extension AbstractQueue {
         for e in newElements {
             if enqueue(e) {
                 count += 1
+            } else {
+                break
             }
         }
         return count
