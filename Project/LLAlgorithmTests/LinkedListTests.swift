@@ -216,6 +216,23 @@ class LinkedListTests: XCTestCase {
         
         XCTAssertTrue(list.elementsEqual([-1, 3]))
     }
+    
+    func testMerge() {
+        
+        var list1 = LinkedList([1, 2, 3, 4, 5])
+        
+        list.append(contentsOf: list1)
+        
+        XCTAssertTrue(list.elementsEqual([1, 2, 3, 4, 5]))
+        
+        XCTAssertFalse(list1.isInvalid)
+        
+        list.insert(contentsOf: list1, at: list.index(after: list.startIndex))
+        
+        XCTAssertTrue(list.elementsEqual([1, 1, 2, 3, 4, 5, 2, 3, 4, 5]))
+        
+        XCTAssertTrue(list1.isInvalid)
+    }
 }
 
 extension Collection {

@@ -10,6 +10,17 @@ import Foundation
 
 public final class LinkedList<Element>: BidirectionalCollection, RangeReplaceableCollection, MutableCollection, CustomStringConvertible, NSCopying {
     
+    public var isInvalid: Bool {
+        
+        var current = head
+        
+        while let next = current.next, let previous = next.previous, previous === current {
+            current = next
+        }
+        
+        return current != tail
+    }
+    
     public typealias Index = Node
     
     public class Node : Comparable {
